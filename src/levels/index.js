@@ -96,7 +96,7 @@ const levels = [
   },
   {
     level: 4,
-    initialCode: `const promiseThrow = new Promise((resolve,reject) => {
+    initialCode: `const promiseBoomerang = new Promise((resolve,reject) => {
 throwBoomerang((error, result) => {
     if (error) {
       reject(error);
@@ -105,7 +105,7 @@ throwBoomerang((error, result) => {
     }
   });
 });
-promiseThrow.then(() => {
+promiseBoomerang.then(() => {
    //write code here
 })
 .catch(error => fixBoomerangs());`,
@@ -135,9 +135,10 @@ promiseThrow.then(() => {
   },
   {
     level: 5,
-    initialCode: 'const promiseThrow = bluebird.promisify(throwBoomerang)\npromiseThrow().then(() =>{\n\t \n})',
+    initialCode: `const promiseBoomerang = bluebird.promisify(throwBoomerang)
+promiseBoomerang().then(() =>{\n\t \n})`,
     instructions: [
-      'Awesome job! Promises are really great, but they do take a lot of code to create.',
+      'Awesome job! Promises are really great, but they can take a lot of code to create wrappers if you already have a function that uses the usual <code>(err, callback)</code> format.',
       `In this example, you can use a library called <code>bluebird</code> to convert
       a function that takes a callback to a promise. Once you create that object using <code>.promisify(fn)</code>,
       You register what it should resolve with <code>.then</code>
@@ -158,7 +159,7 @@ promiseThrow.then(() => {
   },
   {
     level: 6,
-    initialCode: 'const promiseThrow = bluebird.promisify(throwBoomerang)\npromiseThrow()\n\t.catch(() => fixBoomerangs())',
+    initialCode: 'const promiseBoomerang = bluebird.promisify(throwBoomerang)\npromiseThrow()\n\t.catch(() => fixBoomerangs())',
     instructions: [
       'Can we replicate some error catching code that we did with callbacks, but with promises? Sure thing: if the promise returned from <code>throwBoomerang()</code> rejects,',
       'we can add a <code>.catch()</code> function to our function to do some error handling.',
@@ -182,6 +183,29 @@ promiseThrow.then(() => {
   },
   {
     level: 7,
+    instructions: [
+      'There is another way that in some cases looks cleaner than promises',
+      'async/await!',
+      'with async/await you can use the keyword <code>async</code> to mark a function as being asynchronous',
+      'and then you can use <code>await</code> to "wait" on promises',
+      'in this example we\'ll have the usual <code>promiseBoomerang</code> function available',
+    ],
+    events: [
+      {
+        type: 'bird',
+        time: 1000,
+      },
+      {
+        type: 'bird',
+        time: 4000,
+      },
+
+    ],
+    initialCode: '// write your code here',
+  },
+
+  {
+    level: 8,
     instructions: ['Out of levels! Nice bird hunting. '],
     initialCode: '// write your code here',
   },

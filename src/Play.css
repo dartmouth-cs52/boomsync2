@@ -3,6 +3,10 @@
   height: 100px;
 }
 
+.bird #wing-up {
+  opacity: .5;
+}
+
 .person {
   position: fixed;
   height: 100px;

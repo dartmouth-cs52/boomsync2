@@ -139,6 +139,9 @@ export default class Play extends Component {
       }, boomReturnTime);
     };
 
+    // eslint-disable-next-line
+    const promiseBoomerang = Bluebird.promisify(throwBoomerang);
+
     // chill function
 
     // eslint-disable-next-line
@@ -235,11 +238,15 @@ export default class Play extends Component {
           </div>
         ))}
 
+        {/* insert audio elements during various states */}
         {birds.filter(b => b.dead).map((b, idx) => (
           <audio src="collision.mp3" key={idx} autoPlay="true" /> //eslint-disable-line
         ))}
         {boomerangs.filter(b => b.broken).map((b, idx) => (
           <audio src="break.mp3" key={idx} autoPlay="true" /> //eslint-disable-line
+        ))}
+        {boomerangs.filter(b => b.throwing).map((b, idx) => (
+          <audio src="swoop.mp3" key={`swoop-${idx}`} autoPlay="true" />//eslint-disable-line
         ))}
 
         {boomerangs.map((b, idx) => (
