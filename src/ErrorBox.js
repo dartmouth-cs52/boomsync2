@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import AceEditor from 'react-ace'
-import 'brace/mode/javascript'
-import 'brace/theme/github'
-import 'brace/ext/language_tools'
+import React, { Component } from 'react';
+import AceEditor from 'react-ace';
+import 'brace/mode/javascript';
+import 'brace/theme/github';
+import 'brace/ext/language_tools';
 
 export default class CodeEditor extends Component {
   render() {
-    const err = this.props.failed
+    const err = this.props.failed;
 
     return (
       <AceEditor
@@ -19,9 +19,9 @@ export default class CodeEditor extends Component {
         showGutter={false}
         value={err ? `${err.name}: ${err.message}` : 'No errors so far!'}
         height="10%"
-        style={{minHeight:"50px"}}
+        style={{ minHeight: '50px' }}
         width="100%"
-        readOnly={true}
+        readOnly
       />
     );
   }

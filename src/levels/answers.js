@@ -4,23 +4,23 @@
 const catchError = () => {
   throwBoomerang((err) => {
     if (err) {
-      fixBoomerangs()
+      fixBoomerangs();
     }
-  })
-}
+  });
+};
 
 throwBoomerang((err) => {
   if (err) {
-      fixBoomerangs()
+    fixBoomerangs();
   }
-})
+});
 
-new Array(3).fill(null).map((_, i ) => {
-  chill(i*1550, catchError)
-})
+new Array(3).fill(null).map((_, i) => {
+  chill(i * 1550, catchError);
+});
 
-const promiseThrow = bluebird.promisify(throwBoomerang)
+const promiseThrow = bluebird.promisify(throwBoomerang);
 
-new Array(3).fill(null).map((_, i ) => {
-  chill(i*2000, () => promiseThrow().catch(fixBoomerangs)
-})
+new Array(3).fill(null).map((_, i) => {
+  chill(i * 2000, () => { promiseThrow().catch(fixBoomerangs); });
+});

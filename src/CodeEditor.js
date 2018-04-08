@@ -1,24 +1,27 @@
-import React, { Component } from 'react'
-import AceEditor from 'react-ace'
-import 'brace/mode/javascript'
-import 'brace/theme/solarized_light'
-import 'brace/ext/language_tools'
+import React, { Component } from 'react';
+import AceEditor from 'react-ace';
+import 'brace/mode/javascript';
+import 'brace/theme/solarized_light';
+import 'brace/ext/language_tools';
 
 export default class CodeEditor extends Component {
   state = {
-    value: ''
+    value: '',
   }
 
-  componentWillMount () {
-    this.state.value = this.props.initialCode
+  componentWillMount() {
+    this.state.value = this.props.initialCode;
   }
 
-  componentWillReceiveProps() {
-    debugger
-    if (this.props.failed || this.props.playing) {
-    } else {
-      this.state.value = this.props.initialCode
-    }
+  // componentWillReceiveProps() {
+  //   if (this.props.failed || this.props.playing) {
+  //   } else {
+  //     this.state.value = this.props.initialCode;
+  //   }
+  // }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.initialCode !== this.props.initialCode) { this.reloadProps(nextProps.initialCode); }
   }
 
   getContents = () => this.state.value
@@ -26,18 +29,12 @@ export default class CodeEditor extends Component {
   reloadProps = (code) => {
     this.setState({
       value: code || this.props.initialCode,
-    })
+    });
   }
 
-  handleChange = (value) => this.setState({ value })
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.initialCode != this.props.initialCode)
-      this.reloadProps(nextProps.initialCode)
-  }
+  handleChange = value => this.setState({ value })
 
   render() {
-
     return (
       <AceEditor
         mode="javascript"
