@@ -3,6 +3,18 @@ import Bluebird from 'bluebird';
 
 import './Play.css';
 
+import birdie from './assets/birdie.svg';
+import brokenBoomerang from './assets/boomerang_brokenBoom.svg';
+import redBoomerang from './assets/boomerang_redBoom.svg';
+import tapedBoomerang from './assets/boomerang_tapedBoom.svg';
+import fallingBird from './assets/bird_falling.svg';
+import back from './assets/back.svg';
+
+import swoopSound from './assets/swoop.mp3';
+import breakSound from './assets/break.mp3';
+import collisionSound from './assets/collision.mp3';
+
+
 const birdSpeed = 0.25; // .25
 const boomReturnTime = 3000;
 const tickInterval = 50; // 50
@@ -115,7 +127,7 @@ export default class Play extends Component {
       this.state.boomerangs[bidx] = generateBoomerang(bidx);
       this.forceUpdate();
 
-      setTimeout((err) => {
+      setTimeout(() => { // TODO handle error
         this.state.boomerangs[bidx] = {
           coords: this.state.boomerangs[bidx].coords,
           rotation: this.state.boomerangs[bidx].rotation,
@@ -240,29 +252,29 @@ export default class Play extends Component {
             <img className="bird"
               alt="bird"
               src={!b.dead
-                ? '/birdie.svg'
-                : '/bird_falling.svg'}
+                ? birdie
+                : fallingBird}
             />
           </div>
         ))}
 
         {/* insert audio elements during various states */}
         {birds.filter(b => b.dead).map((b, idx) => (
-          <audio src="collision.mp3" key={idx} autoPlay="true" /> //eslint-disable-line
+          <audio src={collisionSound} key={idx} autoPlay="true" /> //eslint-disable-line
         ))}
         {boomerangs.filter(b => b.broken).map((b, idx) => (
-          <audio src="break.mp3" key={idx} autoPlay="true" /> //eslint-disable-line
+          <audio src={breakSound} key={idx} autoPlay="true" /> //eslint-disable-line
         ))}
         {boomerangs.filter(b => b.throwing).map((b, idx) => (
-          <audio src="swoop.mp3" key={`swoop-${idx}`} autoPlay="true" />//eslint-disable-line
+          <audio src={swoopSound} key={`swoop-${idx}`} autoPlay="true" />//eslint-disable-line
         ))}
 
         {boomerangs.map((b, idx) => (
           <div key={idx} className="smooth" style={{ transform: `translate(${formatCoords(b.coords, 40)})` }} >
             <img alt="broken"
               src={!b.broken
-                ? ['/boomerang_tapedBoom.svg', 'boomerang_redBoom.svg'][idx % 2] :
-                ['/boomerang_brokenBoom.svg', 'boomerang_brokenBoom.svg'][idx % 2]
+                ? [tapedBoomerang, redBoomerang][idx % 2] :
+                [brokenBoomerang, brokenBoomerang][idx % 2]
               }
               className="smooth-rotate boomerang"
               key={`${idx}-${b.coords}`}
@@ -272,7 +284,7 @@ export default class Play extends Component {
         ))}
 
         <img alt="back"
-          src="/back.svg"
+          src={back}
           style={{
             transform: `translate(${formatCoords([0, playCoords[1] - 50], 50)})`,
             height: 100,

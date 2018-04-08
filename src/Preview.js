@@ -5,7 +5,7 @@ export default class Preview extends Component {
   render() {
     return (
       <div className="preview">
-        <img src="/back.svg"
+        <img src="./assets/back.svg"
           alt="back"
           style={{
             height: 100,

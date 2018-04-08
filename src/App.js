@@ -8,9 +8,10 @@ import CodeEditor from './CodeEditor';
 import ErrorBox from './ErrorBox';
 import LevelIndicator from './LevelIndicator';
 
+import logo from './assets/logo_wide.png';
+
 const { Header, Content } = Layout;
 const ButtonGroup = Button.Group;
-
 
 export default class App extends Component {
   state = {
@@ -108,7 +109,7 @@ export default class App extends Component {
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
             }}
             >
-              <img src="./logo_wide.png" alt="logo" height="90%" />
+              <img src={logo} alt="logo" height="90%" />
               <LevelIndicator changePage={this.changePage} level={level + 1} />
             </Header>
             <Content style={{
