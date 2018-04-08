@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Bluebird from 'bluebird';
+
 import './Play.css';
 
-const birdSpeed = 0.25;
+const birdSpeed = 0.25; // .25
 const boomReturnTime = 3000;
-const tickInterval = 50;
+const tickInterval = 50; // 50
 let boomSpeed = 0.5;
 let playCoords;
 
@@ -68,8 +69,11 @@ export default class Play extends Component {
 
     this.state.birds = this.props.level.events.filter(({ type, time }) => type.includes('bird'))
       .map(({ type, time }) =>
-        (type === 'brokenbird' ? ({ coords: [100 + (time * birdSpeed), 50], dead: false, broken: true }) :
-          ({ coords: [100 + (time * birdSpeed), 50], dead: false })));
+        (type === 'brokenbird' ? ({
+          id: `${type}${time}`, coords: [100 + (time * birdSpeed), 50], dead: false, broken: true,
+        }) :
+          ({ id: `${type}${time}`, coords: [100 + (time * birdSpeed), 50], dead: false })
+        ));
   }
 
   componentWillUnmount() {
@@ -178,8 +182,12 @@ export default class Play extends Component {
 
     // Update bird position
     this.state.birds = this.state.birds.map((b, idx) => (!birdsDead[idx]
-      ? ({ coords: [b.coords[0] - (birdSpeed * tickInterval), b.coords[1]], broken: b.broken, dead: false })
-      : ({ coords: [b.coords[0] + 10, b.coords[1] + 10], broken: b.broken, dead: true })));
+      ? ({
+        id: b.id, coords: [b.coords[0] - (birdSpeed * tickInterval), b.coords[1]], broken: b.broken, dead: false,
+      })
+      : ({
+        id: b.id, coords: [b.coords[0] + 10, b.coords[1] + 10], broken: b.broken, dead: true,
+      })));
 
     const gotBroken = b =>
       this.state.birds.filter(({ coords, broken }) => (broken && dist(b.coords, coords) < 50)).length > 0;
@@ -228,9 +236,9 @@ export default class Play extends Component {
     return (
       <div className="play">
         {birds.map((b, idx) => (
-          <div className="smooth" key={b.coords} style={{ transform: `translate(${formatCoords(b.coords, 50)})` }}>
-            <img alt="bird"
-              className="bird"
+          <div className="smooth" key={b.id} style={{ transform: `translate(${formatCoords(b.coords, 50)})` }} >
+            <img className="bird"
+              alt="bird"
               src={!b.dead
                 ? '/birdie.svg'
                 : '/bird_falling.svg'}
