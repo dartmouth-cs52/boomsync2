@@ -1,7 +1,5 @@
 const history = require('connect-history-api-fallback');
 const convert = require('koa-connect');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
