@@ -10,12 +10,19 @@ Check it out at [http://boomsync.surge.sh/](http://boomsync.surge.sh/)!
 
 Please [open an issue](https://github.com/irenelfeng/boomsync/issues/new) for support.
 
-## Deploying
-Call `npm run build` to build, and use [surge](https://surge.sh) to deploy.
+## Local Setup
 
-`surge ./build`
-Note that in order to support routers that use HTML5 pushState API, you may want to rename the index.html in your build folder to 200.html before deploying to Surge. This ensures that every URL falls back to that file.
+```bash
+yarn
+yarn start
+```
+
+## Deploying
+Call `yarn build` to build, and use [surge](https://surge.sh) to deploy.
+
+`yarn deploy`
+Note that in order to support routers that use HTML5 pushState API, we use a 200.html in addition to index.html. This ensures that every URL falls back to that file.
 
 ## Contributing
 
-Please contribute (add a level?) using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/irenelfeng/boomsync/compare/).
+Please contribute (add a level?) using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/timofei7/boomsync2/compare/).

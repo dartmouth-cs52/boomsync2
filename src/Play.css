@@ -28,10 +28,10 @@
 
 @keyframes flap {
   from {
-    opacity: 1;
+    fill-opacity: 1;  /* svgs don't support opacticy duh */
   }
   to {
-    opacity: 0;
+    fill-opacity: 0;
   }
 }
 

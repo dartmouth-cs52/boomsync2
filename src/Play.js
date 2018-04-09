@@ -3,9 +3,6 @@ import Bluebird from 'bluebird';
 
 import './Play.css';
 
-// import birdie from './assets/birdie.svg';
-// import fallingBird from './assets/bird_falling.svg';
-
 import brokenBoomerang from './assets/boomerang_brokenBoom.svg';
 import redBoomerang from './assets/boomerang_redBoom.svg';
 import tapedBoomerang from './assets/boomerang_tapedBoom.svg';
@@ -254,7 +251,7 @@ export default class Play extends Component {
           <div className="smooth" key={b.id} style={{ transform: `translate(${formatCoords(b.coords, 50)})` }} >
             {!b.dead
               ? <Birdie className="bird" height={100} width={100} />
-              : <FallingBirdie className="bird" height={100} width={100} />}
+              : <FallingBirdie className="bird" height={100} width={100} /> }
           </div>
         ))}
 
@@ -295,12 +292,3 @@ export default class Play extends Component {
     );
   }
 }
-
-
-// <img className="bird"
-//   alt="bird"
-//   src={!b.dead
-//     ? birdie
-//     : fallingBird}
-// />
-//

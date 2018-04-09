@@ -1,5 +1,6 @@
 const history = require('connect-history-api-fallback');
 const convert = require('koa-connect');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -15,6 +16,9 @@ module.exports = {
   output: { publicPath: '/' },
   entry: ['babel-polyfill', './src'], // this is where our app lives
   devtool: 'source-map', // this enables debugging with source in chrome devtools
+  optimization: { // TODO fix this, something is breaking in minimize step
+    minimize: false,
+  },
   module: {
     rules: [
       {
@@ -63,7 +67,7 @@ module.exports = {
             loader: 'babel-loader',
           },
           {
-            loader: 'react-svg-loader',
+            loader: require.resolve('react-svg-loader'),
             options: {
               jsx: true,
               svgo: {
@@ -71,6 +75,7 @@ module.exports = {
                   { removeTitle: false },
                   { cleanupIDs: false },
                   { removeHiddenElems: false },
+                  { removeRasterImages: true },
                 ],
               },
             },
