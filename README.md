@@ -3,7 +3,7 @@
 A game to teach you asynchronous Javascript!
 
 ## How do I play?
-Check it out at [http://boomsync.surge.sh/](http://boomsync.surge.sh/)!
+Check it out at [http://boomsync.me](http://boomsync.me/)!
 ![demo gif](./docs/demo.gif)
 
 ## Support
