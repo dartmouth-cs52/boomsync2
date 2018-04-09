@@ -8,7 +8,7 @@ Check it out at [http://boomsync.surge.sh/](http://boomsync.surge.sh/)!
 
 ## Support
 
-Please [open an issue](https://github.com/irenelfeng/boomsync/issues/new) for support.
+Please [open an issue](https://github.com/timofei7/boomsync2/issues/new) for support.
 
 ## Local Setup
 
