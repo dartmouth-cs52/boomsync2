@@ -7,8 +7,8 @@
     "start": "NODE_ENV=development webpack-serve ./webpack.config.js",
     "build": "yarn clean; NODE_ENV=production webpack --colors",
     "clean": "rimraf dist",
-    "deploy": "yarn build; surge -p dist -d boomsync2.surge.sh; yarn clean",
-    "destroy": "surge teardown boomsync2.surge.sh"
+    "deploy": "yarn build; surge -p dist -d boomsync.me; yarn clean",
+    "destroy": "surge teardown boomsync.me"
   },
   "author": "a collective",
   "devDependencies": {

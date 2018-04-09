@@ -163,7 +163,7 @@ export default class App extends Component {
               <a href="https://github.com/ben-pr-p">Ben Packer</a>,&nbsp;
               <a href="https://byrnehollander.com/">Byrne Hollander</a>,&nbsp;
               <a href="http://jennyseong.me/">Jenny Seong</a>,<br />
-              updated and modified by <a href="http://zingweb.com/">Tim Tregubov</a>
+              version2 updated and modified by <a href="http://zingweb.com/">Tim Tregubov</a>
             </div>
           </Layout>
         </div>
