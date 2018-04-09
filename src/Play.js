@@ -3,22 +3,25 @@ import Bluebird from 'bluebird';
 
 import './Play.css';
 
-import birdie from './assets/birdie.svg';
+// import birdie from './assets/birdie.svg';
+// import fallingBird from './assets/bird_falling.svg';
+
 import brokenBoomerang from './assets/boomerang_brokenBoom.svg';
 import redBoomerang from './assets/boomerang_redBoom.svg';
 import tapedBoomerang from './assets/boomerang_tapedBoom.svg';
-import fallingBird from './assets/bird_falling.svg';
 import back from './assets/back.svg';
 
 import swoopSound from './assets/swoop.mp3';
 import breakSound from './assets/break.mp3';
 import collisionSound from './assets/collision.mp3';
 
+import Birdie from './assets/birdie.inline.svg';
+import FallingBirdie from './assets/birdie-falling.inline.svg';
 
 const birdSpeed = 0.25; // .25
-const boomReturnTime = 3000;
+const boomReturnTime = 3000; // 3000
 const tickInterval = 50; // 50
-let boomSpeed = 0.5;
+let boomSpeed = 0.5; // .5
 let playCoords;
 
 const dist = ([x1, y1], [x2, y2]) => Math.sqrt(((x1 - x2) ** 2) + ((y1 - y2) ** 2));
@@ -249,12 +252,9 @@ export default class Play extends Component {
       <div className="play">
         {birds.map((b, idx) => (
           <div className="smooth" key={b.id} style={{ transform: `translate(${formatCoords(b.coords, 50)})` }} >
-            <img className="bird"
-              alt="bird"
-              src={!b.dead
-                ? birdie
-                : fallingBird}
-            />
+            {!b.dead
+              ? <Birdie className="bird" height={100} width={100} />
+              : <FallingBirdie className="bird" height={100} width={100} />}
           </div>
         ))}
 
@@ -295,3 +295,12 @@ export default class Play extends Component {
     );
   }
 }
+
+
+// <img className="bird"
+//   alt="bird"
+//   src={!b.dead
+//     ? birdie
+//     : fallingBird}
+// />
+//

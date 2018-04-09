@@ -54,17 +54,42 @@ module.exports = {
             },
           },
         ],
+        exclude: /\.inline.svg$/,
       },
+      {
+        test: /\.inline.svg$/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'react-svg-loader',
+            options: {
+              jsx: true,
+              svgo: {
+                plugins: [
+                  { removeTitle: false },
+                  { cleanupIDs: false },
+                  { removeHiddenElems: false },
+                ],
+              },
+            },
+          },
+        ],
+      },
+
     ],
   },
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      favicon: './src/assets/favicon.ico',
       filename: './index.html',
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      favicon: './src/assets/favicon.ico',
       filename: './200.html',
     }),
   ],

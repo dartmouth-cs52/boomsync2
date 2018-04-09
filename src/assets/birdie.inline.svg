@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 300 300" style="enable-background:new 0 0 300 300;" xml:space="preserve">
+<g id="wing-up">
+	<path id="backFeet" style="fill:#E4BEBD;" d="M183,236.9l8.9,5c0,0,0.5,7.9,10.5,16.7c9.7,8.6,13.2,9.8,17.7,8.9s6.9-7,6.9-7
+		s-6.5,2.2-10.2-0.2c-3.4-2.2-12.5-7.5-13.3-11s0.3-6.6,0.3-6.6s2.8-1.2,7.4,0.8c4.6,2,3.2,5.3,3.2,5.3s3.5-5.6,1.2-7.7
+		c-2.4-2.1-9.1-7.8-14.8-6.9c-5.7,0.9-7.3,1.7-7.3,1.7l-9.6-6.4L183,236.9z"/>
+	<path id="backLeg" style="fill:#CEC1A3;" d="M161,231.7c0,0,3.1,3.2,8.9,4.4c5.8,1.2,13.6,1.5,13.6,1.5l3.1-4.7
+		c0,0-7.2-6.4-12.8-7.3C168.1,224.7,161,231.7,161,231.7z"/>
+	
+		<linearGradient id="backWing_2_" gradientUnits="userSpaceOnUse" x1="-580.1766" y1="-448.5009" x2="-457.2281" y2="-326.4709" gradientTransform="matrix(0.7045 -0.7098 -0.7098 -0.7045 188.7729 -528.5392)">
+		<stop  offset="1.198948e-03" style="stop-color:#CEC1A3"/>
+		<stop  offset="7.332816e-02" style="stop-color:#C2AB9A"/>
+		<stop  offset="0.1889" style="stop-color:#B4908F"/>
+		<stop  offset="0.3125" style="stop-color:#AA7C87"/>
+		<stop  offset="0.4449" style="stop-color:#A36D81"/>
+		<stop  offset="0.59" style="stop-color:#9E637D"/>
+		<stop  offset="0.7577" style="stop-color:#9B5C7A"/>
+		<stop  offset="1" style="stop-color:#9A5A7A"/>
+	</linearGradient>
+	<path id="backWing" style="fill:url(#backWing_2_);" d="M93.9,197.9c-16.5-12.6-36.4-56.1-37.7-63c-1.3-6.9-1-28.4,4.6-52.6
+		S88.1,26,88.1,26s27.6,27.2,32.9,45.4c8,27.6-4.7,48.7-4.7,48.7s15.4,14.7,20.5,28.8c5.3,14.6,5.5,26,2.3,32.9
+		S102.4,203.8,93.9,197.9z"/>
+	
+		<linearGradient id="body_2_" gradientUnits="userSpaceOnUse" x1="166.3621" y1="-426.4206" x2="166.3621" y2="-361.6523" gradientTransform="matrix(1 0 0 -1 0 -188)">
+		<stop  offset="1.198948e-03" style="stop-color:#CEC1A3"/>
+		<stop  offset="2.093196e-03" style="stop-color:#CEC1A3"/>
+		<stop  offset="0.2027" style="stop-color:#E2D5B3"/>
+		<stop  offset="0.42" style="stop-color:#F1E4BF"/>
+		<stop  offset="0.6661" style="stop-color:#FCEDC7"/>
+		<stop  offset="1" style="stop-color:#FFF1C9"/>
+	</linearGradient>
+	<path id="body" style="fill:url(#body_2_);" d="M48.4,203.8c0,0-5.6-32.6,67.9-30c56.9,2,58.8,17.3,77.1,23.1
+		c18.4,5.8,87.2-9.8,87.2-9.8s8.6,6.1,0,17.7c-8.6,11.6-32.1,18.7-32.1,18.7s-38.2-6.7-48.6-5.9s-34.9,16.1-58.8,18.9
+		C116.3,239.3,48.4,244.8,48.4,203.8z"/>
+	<path id="frontFeet" style="fill:#FBCCCC;" d="M193.6,235.1l8.6,5.4c0,0,0.1,7.9,9.6,17.3c9.3,9.1,12.7,10.4,17.2,9.8
+		s7.3-6.6,7.3-6.6s-6.6,1.8-10.2-0.8c-3.3-2.4-12.1-8.2-12.7-11.7c-0.6-3.5,0.7-6.6,0.7-6.6s2.8-1.1,7.3,1.2s2.9,5.4,2.9,5.4
+		s3.8-5.4,1.6-7.7s-8.6-8.3-14.4-7.7c-5.8,0.6-7.4,1.3-7.4,1.3l-9.3-6.9L193.6,235.1z"/>
+	<path id="frontLeg" style="fill:#EADEBB;" d="M172.3,227c0,0,3,4.4,9.3,6.6c6.3,2.2,14.9,3.6,14.9,3.6l4.1-5.6c0,0-7.1-9-13.2-10.8
+		C181.3,219,172.3,227,172.3,227z"/>
+	
+		<linearGradient id="frontWing_2_" gradientUnits="userSpaceOnUse" x1="177.1547" y1="-387.2344" x2="177.1547" y2="-241" gradientTransform="matrix(1 0 0 -1 0 -188)">
+		<stop  offset="1.198948e-03" style="stop-color:#FFF2CA"/>
+		<stop  offset="6.281341e-02" style="stop-color:#E8D2BA"/>
+		<stop  offset="0.1593" style="stop-color:#D0ADA6"/>
+		<stop  offset="0.2626" style="stop-color:#BD9196"/>
+		<stop  offset="0.372" style="stop-color:#B07C8B"/>
+		<stop  offset="0.4899" style="stop-color:#A66D83"/>
+		<stop  offset="0.6201" style="stop-color:#9F637E"/>
+		<stop  offset="0.7723" style="stop-color:#9C5C7B"/>
+		<stop  offset="1" style="stop-color:#9A5A7A"/>
+	</linearGradient>
+	<path id="frontWing" style="fill:url(#frontWing_2_);" d="M118.3,178.2c-2.7-20.6,14.2-65.3,18.1-71.1c3.9-5.8,19.4-20.6,40.5-33.8
+		S236.3,53,236.3,53s0.1,38.7-9.1,55.3c-13.9,25.2-37.9,30.9-37.9,30.9s0.4,21.2-6.1,34.9c-6.7,14.1-14.6,22.2-21.7,24.8
+		S120.1,188.4,118.3,178.2z"/>
+	<path id="head" style="fill:#DA8483;" d="M92.6,173.7c7.3,0,24.2,3.2,23.7,30.8c-0.5,27.8-21.5,32.2-21.5,32.2s-12.7,4.7-36.2-8.7
+		s-30.2-15.4-30.8-28.8C27.1,185.8,85.3,173.7,92.6,173.7z"/>
+	<path id="beak" style="fill:#FFDE8D;" d="M35.8,211.7c0,0,2.6-1.2,2.3-6.1c-0.4-4.9-4.1-6.4-7.2-6.4s-8.3,0.7-11.7,6.4
+		s6.4,13.3,6.4,13.3s-5.9-9.5,2.2-8.3L35.8,211.7z"/>
+	<g id="eye_1_">
+		<circle id="eye" cx="47.4" cy="198.5" r="5.8"/>
+		<circle id="eyeShine" style="fill:#FFFFFF;" cx="46.2" cy="196.6" r="1.9"/>
+	</g>
+</g>
+<g id="wing-down" style="display:none;">
+	<path id="backFeet_1_" style="display:inline;fill:#E4BEBD;" d="M183,236.9l8.9,5c0,0,0.5,7.9,10.5,16.7c9.7,8.6,13.2,9.8,17.7,8.9
+		s6.9-7,6.9-7s-6.5,2.2-10.2-0.2c-3.4-2.2-12.5-7.5-13.3-11s0.3-6.6,0.3-6.6s2.8-1.2,7.4,0.8c4.6,2,3.2,5.3,3.2,5.3s3.5-5.6,1.2-7.7
+		c-2.4-2.1-9.1-7.8-14.8-6.9c-5.7,0.9-7.3,1.7-7.3,1.7l-9.6-6.4L183,236.9z"/>
+	<path id="backLeg_1_" style="display:inline;fill:#CEC1A3;" d="M161,231.7c0,0,3.1,3.2,8.9,4.4c5.8,1.2,13.6,1.5,13.6,1.5l3.1-4.7
+		c0,0-7.2-6.4-12.8-7.3C168.1,224.7,161,231.7,161,231.7z"/>
+	
+		<linearGradient id="backWing_3_" gradientUnits="userSpaceOnUse" x1="-287.8068" y1="807.5781" x2="-164.8891" y2="685.5787" gradientTransform="matrix(-0.8926 0.2997 0.4121 0.8456 -425.77 -396.854)">
+		<stop  offset="1.198948e-03" style="stop-color:#CEC1A3"/>
+		<stop  offset="7.332816e-02" style="stop-color:#C2AB9A"/>
+		<stop  offset="0.1889" style="stop-color:#B4908F"/>
+		<stop  offset="0.3125" style="stop-color:#AA7C87"/>
+		<stop  offset="0.4449" style="stop-color:#A36D81"/>
+		<stop  offset="0.59" style="stop-color:#9E637D"/>
+		<stop  offset="0.7577" style="stop-color:#9B5C7A"/>
+		<stop  offset="1" style="stop-color:#9A5A7A"/>
+	</linearGradient>
+	<path id="backWing_1_" style="display:inline;fill:url(#backWing_3_);" d="M164.2,195.6c-6.1-18.2-39.6-51-45.5-54.7
+		s-25.9-11.7-50.1-16.4c-24.2-4.7-61.2,0.6-61.2,0.6s15.8,32.8,30.9,44.1c22.8,17,46.5,14.8,46.5,14.8s8.4,18.1,19.7,27.7
+		c11.7,9.9,22.2,14.4,29.6,14.5C141.6,226.2,166.8,204.8,164.2,195.6z"/>
+	
+		<linearGradient id="body_3_" gradientUnits="userSpaceOnUse" x1="166.3621" y1="-426.4206" x2="166.3621" y2="-361.6523" gradientTransform="matrix(1 0 0 -1 0 -188)">
+		<stop  offset="1.198948e-03" style="stop-color:#CEC1A3"/>
+		<stop  offset="2.093196e-03" style="stop-color:#CEC1A3"/>
+		<stop  offset="0.2027" style="stop-color:#E2D5B3"/>
+		<stop  offset="0.42" style="stop-color:#F1E4BF"/>
+		<stop  offset="0.6661" style="stop-color:#FCEDC7"/>
+		<stop  offset="1" style="stop-color:#FFF1C9"/>
+	</linearGradient>
+	<path id="body_1_" style="display:inline;fill:url(#body_3_);" d="M48.4,203.8c0,0-5.6-32.6,67.9-30c56.9,2,58.8,17.3,77.1,23.1
+		c18.4,5.8,87.2-9.8,87.2-9.8s8.6,6.1,0,17.7c-8.6,11.6-32.1,18.7-32.1,18.7s-38.2-6.7-48.6-5.9s-34.9,16.1-58.8,18.9
+		C116.3,239.3,48.4,244.8,48.4,203.8z"/>
+	<path id="frontFeet_1_" style="display:inline;fill:#FBCCCC;" d="M193.6,235.1l8.6,5.4c0,0,0.1,7.9,9.6,17.3
+		c9.3,9.1,12.7,10.4,17.2,9.8s7.3-6.6,7.3-6.6s-6.6,1.8-10.2-0.8c-3.3-2.4-12.1-8.2-12.7-11.7c-0.6-3.5,0.7-6.6,0.7-6.6
+		s2.8-1.1,7.3,1.2s2.9,5.4,2.9,5.4s3.8-5.4,1.6-7.7s-8.6-8.3-14.4-7.7c-5.8,0.6-7.4,1.3-7.4,1.3l-9.3-6.9L193.6,235.1z"/>
+	<path id="frontLeg_1_" style="display:inline;fill:#EADEBB;" d="M172.3,227c0,0,3,4.4,9.3,6.6c6.3,2.2,14.9,3.6,14.9,3.6l4.1-5.6
+		c0,0-7.1-9-13.2-10.8C181.3,219,172.3,227,172.3,227z"/>
+	
+		<linearGradient id="frontWing_3_" gradientUnits="userSpaceOnUse" x1="360.7476" y1="524.9603" x2="360.7476" y2="378.7862" gradientTransform="matrix(0.6916 0.7223 -0.7223 0.6916 274.8943 -391.5625)">
+		<stop  offset="1.198948e-03" style="stop-color:#FFF2CA"/>
+		<stop  offset="6.281341e-02" style="stop-color:#E8D2BA"/>
+		<stop  offset="0.1593" style="stop-color:#D0ADA6"/>
+		<stop  offset="0.2626" style="stop-color:#BD9196"/>
+		<stop  offset="0.372" style="stop-color:#B07C8B"/>
+		<stop  offset="0.4899" style="stop-color:#A66D83"/>
+		<stop  offset="0.6201" style="stop-color:#9F637E"/>
+		<stop  offset="0.7723" style="stop-color:#9C5C7B"/>
+		<stop  offset="1" style="stop-color:#9A5A7A"/>
+	</linearGradient>
+	<path id="frontWing_1_" style="display:inline;fill:url(#frontWing_3_);" d="M119.7,175c13-16.2,57-34.9,63.9-36.1
+		c6.9-1.2,28.3-0.2,52.4,5.9c24.1,6.1,55.7,28.9,55.7,28.9s-27.9,26.8-46.2,31.7c-27.8,7.4-48.5-6-48.5-6s-15,14.9-29.4,19.7
+		c-14.8,4.9-26.1,4.8-32.9,1.5S113.6,183.4,119.7,175z"/>
+	<path id="head_1_" style="display:inline;fill:#DA8483;" d="M92.6,173.7c7.3,0,24.2,3.2,23.7,30.8c-0.5,27.8-21.5,32.2-21.5,32.2
+		s-12.7,4.7-36.2-8.7s-30.2-15.4-30.8-28.8C27.1,185.8,85.3,173.7,92.6,173.7z"/>
+	<path id="beak_1_" style="display:inline;fill:#FFDE8D;" d="M35.8,211.7c0,0,2.6-1.2,2.3-6.1c-0.4-4.9-4.1-6.4-7.2-6.4
+		s-8.3,0.7-11.7,6.4s6.4,13.3,6.4,13.3s-5.9-9.5,2.2-8.3L35.8,211.7z"/>
+	<g id="eye_2_" style="display:inline;">
+		<circle id="eye_3_" cx="47.4" cy="198.5" r="5.8"/>
+		<circle id="eyeShine_1_" style="fill:#FFFFFF;" cx="46.2" cy="196.6" r="1.9"/>
+	</g>
+</g>
+</svg>

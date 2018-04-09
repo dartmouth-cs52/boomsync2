@@ -5,7 +5,7 @@
 
 
 #wing-up {
-  display: inherit; /* reset display from hidden */
+  display: block; /* reset display from hidden */
   animation-name: flap;
   animation-duration: .25s;
   animation-iteration-count: infinite;
@@ -15,7 +15,7 @@
   animation-delay: .25s; /* or: Xms */
 }
 #wing-down {
-  display: inherit; /* reset display from hidden */
+  display: block; /* reset display from hidden */
   animation-name: flap;
   animation-duration: .25s;
   animation-iteration-count: infinite;
