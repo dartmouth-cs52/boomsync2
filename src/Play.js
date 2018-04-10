@@ -159,7 +159,7 @@ export default class Play extends Component {
     const promiseBoomerang = Bluebird.promisify(throwBoomerang);
 
     // chill function
-
+    // don't use this
     // eslint-disable-next-line
     const chill = (ms, fn) => {
       setTimeout(() => fn && typeof fn === 'function' && fn(null, {}), ms);

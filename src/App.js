@@ -38,22 +38,6 @@ export default class App extends Component {
       failed: null,
     })))
 
-  replay = () => {
-    this.setState(prevState => ({
-      playing: true,
-      isSubmitted: true,
-      failed: null,
-    }));
-  }
-
-  handleResetClick = () => {
-    this.setState(() => ({
-      playing: false,
-      readyForNext: false,
-      failed: null,
-    }));
-  }
-
   changePage = (page) => {
     this.setState(() => ({
       isSubmitted: false,
@@ -80,6 +64,18 @@ export default class App extends Component {
   }
 
   play = () => this.setState({ playing: true })
+
+
+  replay = () => {
+    this.setState(() => ({
+      playing: true,
+      isSubmitted: true,
+      failed: null,
+      code: this.codeEditor.getContents(),
+    }));
+  }
+
+
   initialCode = level => levels[level].initialCode
 
   handleResetClick = () => {
@@ -93,10 +89,12 @@ export default class App extends Component {
     this.codeEditor.reloadProps(this.initialCode(this.state.level));
   }
 
+
   render() {
     const {
       playing, level, code, failed,
     } = this.state;
+    const totalLevels = Object.keys(levels).length;
     const description = levels[level].instructions.join('<br/> <br/>');
     const initialCode = this.initialCode(level);
     // const lineStart = levels[level].lineStart;
@@ -110,7 +108,7 @@ export default class App extends Component {
             }}
             >
               <img src={logo} alt="logo" height="90%" />
-              <LevelIndicator changePage={this.changePage} level={level + 1} />
+              <LevelIndicator changePage={this.changePage} level={level + 1} totalLevels={totalLevels} />
             </Header>
             <Content style={{
               display: 'flex',

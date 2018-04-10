@@ -9,7 +9,7 @@ export default class LevelIndicator extends Component {
 
   render() {
     return (
-      <Pagination simple current={this.props.level} total={80} onChange={this.handleChange} />
+      <Pagination simple current={this.props.level} total={this.props.totalLevels * 10} onChange={this.handleChange} />
     );
   }
 }

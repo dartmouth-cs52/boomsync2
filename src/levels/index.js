@@ -21,20 +21,21 @@ const levels = [
   },
   {
     level: 1,
-    initialCode: 'chill(1000, () => {\n// write your code here\n});',
+    before: 'chill(1000, () => {\n// write your code here\n});',
+    initialCode: 'setTimeout( /* write your code here */ );',
     instructions: [
       'For this level, if you throw the boomerang right away you\'ll be too early.',
       'You\'ll need to throw a boomerang in <b>1000</b> ms.',
-      `We've provided you a second function called <code>chill</code>.
-      <code>chill(waitTime, callback)</code>
-      takes in two parameters: the first is how long to wait in milliseconds before
-      the function in the second parameter is called.`,
-      'This is called a <i> callback </i> function.',
+      `Javascript has a function <code>setTimeout(callback, delayTimeInMilliSeconds)</code>.
+      It takes in two parameters: the first is a <i>function</i> to be called later
+      and the second parameter is the number if ms to wait.`,
+      'Welcome to <i>callback</i> functions.',
       `The optional parameter we can give to <code>throwBoomerang()</code> is also a callback.
       Callbacks are everywhere in asynchronous Javascript`,
-      `In the editor below, try chilling for <b>1000</b> ms and putting
-      <code>throwBoomerang</code> in the callback.`,
-      'Note: <code>chill(1000, throwBoomerang())</code> will throw the boomerang immediately',
+      `In the editor below, try waiting for <b>1000</b> ms and putting
+      <code>throwBoomerang</code> as the callback.`,
+      'Note: <code>setTimeout(throwBoomerang(), 1000)</code> will throw the boomerang immediately',
+      'Why might that be?  Hint: What does <code>functioname()</code> do?',
     ],
     events: [
       {
@@ -47,10 +48,12 @@ const levels = [
     level: 2,
     initialCode: 'throwBoomerang()\n//write your code here',
     instructions: [
-      `Great job! However, this code did not take full advantage of the power of
+      `Great, now you've used your first callback!
+      However, this code did not take full advantage of the power of
       asynchronous execution, which is that while you're waiting for something
       to return, you can work on something else.`,
-      `In this level, you'll need to throw a second boomerag before the first one returns.
+      `In this level you have 2 boomerangs,
+      you'll need to throw a second boomerag before the first one returns.
       The first bird is coming so that if you throw one boomerang right away, you'll get it.`,
       'To hit the second one, you\'ll need to wait 500 ms before throwing.',
     ],
@@ -68,15 +71,65 @@ const levels = [
   },
   {
     level: 3,
+    initialCode: 'throwBoomerang( /* write your code here */ );',
+    instructions: [
+      `What if you want to trigger something when the function completes?
+      This is a perfect use for a callback.
+      `,
+      `The optional parameter we can give to <code>throwBoomerang()</code> is also a callback.
+      <code>throwBoomerang</code> will run that callback function when it is done.
+      `,
+      `In this scenario pretend you only have 1 boomerang so you have to wait for it come back before
+      you throw it again. It so happens the bird timing is just right... <i> hint: it can be recursive</i>`,
+
+    ],
+    events: [
+      {
+        type: 'bird',
+        time: 1000,
+      },
+      {
+        type: 'bird',
+        time: 4000,
+      },
+    ],
+  },
+
+  {
+    level: 4,
+    initialCode: 'throwBoomerang( () => { \n//your code here \n});',
+    instructions: [
+      `You may have noticed a different notation sometimes used for creating functions in JS.
+      Something that looks like: <code>(args) => { /* do something /* }</code>`,
+      'This is called arrow notation for creating an anonymous function.',
+      `In this level there is just one bird,
+      but you want to triggger an <code>alert('dinner!')</code>
+      when the function completes. `,
+      'What would have happened if we just put the alert in as a callback without wrapping it in an anonymous function?',
+    ],
+    events: [
+      {
+        type: 'bird',
+        time: 1000,
+      },
+    ],
+  },
+
+  {
+    level: 5,
     initialCode: 'throwBoomerang((err) => {\n\tif (err) {\n\t\t// write your code here\n\t}\n})',
     instructions: [
-      `Great! But boomerangs are taking a beating after killing so many birds. Our boomerangs might break at a random time!
+      'Great use of an anonymous function!',
+      `But our boomerangs are taking a beating after killing so many birds.
+      Our boomerangs might break at a random time!
       The conventional way we deal with errors in asynchronous javascript is that if an error occurs during the execution of a function,
-      the error will return in the first parameter of the callback (Note: some functions also return with data in a second parameter,
-      though throwBoomerang() does not. You could get the value of the data by giving your arrow function <code>(err, data)</code> parameters).`,
-      `There are 3 birds in this round: one you can kill immediately, one you can kill after chilling for 2000 ms,
-      and one you can kill after chilling for 4000 ms. We've programmed that the one you kill immediately will break your boomerang, but
-      in the real hunting world, and coding world, you never know when tragedy will strike: best practice if you catch for all three!`,
+      the error will return in the first parameter of the callback (with data optionally in the second).
+      You could get the value of the data by giving your arrow function <code>(err, data)</code> parameters).`,
+      `There are 3 birds in this round, but you only have 2 boomerangs.
+      One you can kill immediately, one you can kill after waiting for 2000 ms,
+      and one you can kill after chilling for 4000 ms.`,
+      `The first one will break your boomerang, but in the real hunting world,
+      and coding world, you never know when tragedy will strike: best practice obviously is to handle errors always!`,
       'We\'ve written out part of the first throwBoomerang function for you: call <code>fixBoomerangs()</code> to handle potential errors.',
     ],
     events: [
@@ -95,7 +148,7 @@ const levels = [
     ],
   },
   {
-    level: 4,
+    level: 6,
     initialCode: `const promiseBoomerang = new Promise((resolve,reject) => {
 throwBoomerang((error, result) => {
     if (error) {
@@ -110,7 +163,9 @@ promiseBoomerang.then(() => {
 })
 .catch(error => fixBoomerangs());`,
     instructions: [
-      `Awesome job! Next: Promises. A Promise is an object representing some asynchronous
+      'Awesome job! Next: Promises.',
+      'Promises help us write more legible asynch code using <code>.then()</code> notation.',
+      `A Promise is an object representing some asynchronous
       operation, and it can be either pending, fullfilled, or rejected. If a promise is fullfilled,
       it resolves (optionally with a particular value). If a promise fails (rejects), it
       is rejected with an error. The wrapping of our function in an object allows us to separate errors from successes.`,
@@ -134,7 +189,7 @@ promiseBoomerang.then(() => {
     ],
   },
   {
-    level: 5,
+    level: 7,
     initialCode: `const promiseBoomerang = bluebird.promisify(throwBoomerang)
 promiseBoomerang().then(() =>{\n\t \n})`,
     instructions: [
@@ -158,12 +213,12 @@ promiseBoomerang().then(() =>{\n\t \n})`,
     ],
   },
   {
-    level: 6,
-    initialCode: 'const promiseBoomerang = bluebird.promisify(throwBoomerang)\npromiseThrow()\n\t.catch(() => fixBoomerangs())',
+    level: 8,
+    initialCode: 'const promiseBoomerang = bluebird.promisify(throwBoomerang)\npromiseBoomerang()\n\t.catch(() => fixBoomerangs())',
     instructions: [
       'Can we replicate some error catching code that we did with callbacks, but with promises? Sure thing: if the promise returned from <code>throwBoomerang()</code> rejects,',
       'we can add a <code>.catch()</code> function to our function to do some error handling.',
-      `Again, there are 3 birds in this round: one you can kill immediately, one you can kill after chilling for 2000 ms,
+      `There are 3 birds in this round: one you can kill immediately, one you can kill after chilling for 2000 ms,
       and one you can kill after chilling for 4000 ms.`,
     ],
     events: [
@@ -182,13 +237,15 @@ promiseBoomerang().then(() =>{\n\t \n})`,
     ],
   },
   {
-    level: 7,
+    level: 9,
     instructions: [
       'There is another way that in some cases looks cleaner than promises',
       'async/await!',
       'with async/await you can use the keyword <code>async</code> to mark a function as being asynchronous',
       'and then you can use <code>await</code> to "wait" on promises',
-      'in this example we\'ll have the usual <code>promiseBoomerang</code> function available',
+      'rather than using <code>.then</code> notation',
+      'in this example we\'ll have the <code>promiseBoomerang</code> function already available',
+      'Note how each line the async function runs after the previous await finishes.',
     ],
     events: [
       {
@@ -201,13 +258,49 @@ promiseBoomerang().then(() =>{\n\t \n})`,
       },
 
     ],
-    initialCode: '// write your code here',
-  },
+    initialCode: `
+async function hunt(){
+  await promiseBoomerang();
+  // your code here
+  alert('done');
+}
 
+hunt();`,
+  },
   {
-    level: 8,
-    instructions: ['Out of levels! Nice bird hunting. '],
+    level: 11,
+    instructions: [`Out of levels! Nice bird hunting. In this level there are birds at: immediately, 2000, 4000, 6000
+      and they are all tough birds, breaking your boomerang every time. Good luck.`],
     initialCode: '// write your code here',
+    solution: `
+const bp = () => {
+  promiseBoomerang().catch((err) => {
+    if (err) fixBoomerangs();
+  });
+}
+bp();
+setTimeout(bp, 2000);
+setTimeout(bp, 4000);
+setTimeout(bp, 6000);`,
+    events: [
+      {
+        type: 'brokenbird',
+        time: 1000,
+      },
+      {
+        type: 'brokenbird',
+        time: 3000,
+      },
+      {
+        type: 'brokenbird',
+        time: 5000,
+      },
+      {
+        type: 'brokenbird',
+        time: 7000,
+      },
+
+    ],
   },
 
 ];
