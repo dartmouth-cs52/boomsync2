@@ -218,7 +218,7 @@ promiseBoomerang().then(() =>{\n\t \n})`,
     instructions: [
       'Can we replicate some error catching code that we did with callbacks, but with promises? Sure thing: if the promise returned from <code>throwBoomerang()</code> rejects,',
       'we can add a <code>.catch()</code> function to our function to do some error handling.',
-      `There are 3 birds in this round: one you can kill immediately, one you can kill after chilling for 2000 ms,
+      `There are 3 birds in this round: one you can kill immediately (and breaks boomerang), one you can kill after chilling for 2000 ms,
       and one you can kill after chilling for 4000 ms.`,
     ],
     events: [
@@ -269,8 +269,10 @@ hunt();`,
   },
   {
     level: 11,
-    instructions: [`Out of levels! Nice bird hunting. In this level there are birds at: immediately, 2000, 4000, 6000
-      and they are all tough birds, breaking your boomerang every time. Good luck.`],
+    instructions: ['Out of levels! Nice bird hunting.',
+      'In this level there are birds at: immediately, 2000, 4000, 6000',
+      'and they are all tough birds, breaking your boomerang every time.',
+      'Good luck. Try creating a new function using <code>promiseBoomerang</code> with error catching.'],
     initialCode: '// write your code here',
     solution: `
 const bp = () => {
