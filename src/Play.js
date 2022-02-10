@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Bluebird from 'bluebird';
+import produce from "immer"
 
 import './Play.css';
 
@@ -12,8 +13,8 @@ import swoopSound from './assets/swoop.mp3';
 import breakSound from './assets/break.mp3';
 import collisionSound from './assets/collision.mp3';
 
-import Birdie from './assets/birdie.inline.svg';
-import FallingBirdie from './assets/birdie-falling.inline.svg';
+import {ReactComponent as Birdie} from './assets/birdie.inline.svg';
+import {ReactComponent as FallingBirdie} from './assets/birdie-falling.inline.svg';
 
 const birdSpeed = 0.25; // .25
 const boomReturnTime = 3000; // 3000
@@ -62,6 +63,7 @@ function formatCoords(coords, radius) {
 export default class Play extends Component {
   state = {
     boomerangs: new Array(2).fill(null).map((_, idx) => defaultBoomerang(idx)),
+    birds: []
   }
 
   // eslint-disable-next-line
@@ -124,8 +126,11 @@ export default class Play extends Component {
       }
 
       ++queuedBoomerangs;
-      this.state.boomerangs[bidx] = generateBoomerang(bidx);
-      this.forceUpdate();
+      //TODO: use produce to update state rather than the forceUpdate thing people have been doing
+      const newBoomerangs = produce(this.state.boomerangs, draft => {
+        draft[bidx] = generateBoomerang(bidx);
+      })
+      this.setState({boomerangs: newBoomerangs});
 
       setTimeout(() => { // TODO handle error
         this.state.boomerangs[bidx] = {

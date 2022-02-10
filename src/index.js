@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import enUS from 'antd/lib/locale-provider/en_US';
-import { LocaleProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 
 import App from './App';
 import './index.css';
 
 ReactDOM.render(
   (
-    <LocaleProvider locale={enUS}>
+    <ConfigProvider locale={enUS}>
       <App />
-    </LocaleProvider>
+    </ConfigProvider>
   ),
   document.getElementById('root'),
 );

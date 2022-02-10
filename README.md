@@ -10,18 +10,36 @@ Check it out at [http://boomsync.me](http://boomsync.me/)!
 
 Please [open an issue](https://github.com/timofei7/boomsync2/issues/new) for support.
 
-## Local Setup
 
-```bash
-yarn
-yarn start
-```
+## Develop
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Deploying
-Call `yarn build` to build, and use [surge](https://surge.sh) to deploy.
+### Available Scripts
 
-`yarn deploy`
-Note that in order to support routers that use HTML5 pushState API, we use a 200.html in addition to index.html. This ensures that every URL falls back to that file.
+In the project directory, you can run:
+
+#### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+#### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+#### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ## Contributing
 

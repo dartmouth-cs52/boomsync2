@@ -20,6 +20,7 @@ export default class App extends Component {
     isSubmitted: false,
     failed: null,
     readyForNext: false,
+    win: false,
   }
 
   handleClick = () => (this.state.readyForNext
@@ -50,10 +51,19 @@ export default class App extends Component {
   }
 
   succeed = () => {
-    this.setState(() => ({
-      playing: false,
-      readyForNext: true,
-    }));
+    if (this.state.level === Object.keys(levels).length - 1) {
+      // completed last level!
+      this.setState(() => ({
+        playing: false,
+        readyForNext: false,
+        win: true,
+      }));
+    } else {
+      this.setState(() => ({
+        playing: false,
+        readyForNext: true,
+      }));
+    }
   }
 
   fail = (err) => {
@@ -140,7 +150,8 @@ export default class App extends Component {
                   {
                     this.state.readyForNext && !this.state.playing ? <Button type="default" onClick={this.replay}> Replay </Button> : ''
                   }
-                  <Button type="primary" loading={this.state.playing} onClick={this.handleClick}>
+                  { 
+                    !this.state.win ? <Button type="primary" loading={this.state.playing} onClick={this.handleClick}>
                     {this.state.isSubmitted
                       ? !this.state.playing
                         ? this.state.readyForNext
@@ -149,8 +160,8 @@ export default class App extends Component {
                         : 'Running'
                       : 'Submit'
                     }
-                  </Button>
-
+                    </Button> : <div> you won! </div>
+                  }
                 </ButtonGroup>
 
               </div>
@@ -161,7 +172,7 @@ export default class App extends Component {
               <a href="https://github.com/ben-pr-p">Ben Packer</a>,&nbsp;
               <a href="https://byrnehollander.com/">Byrne Hollander</a>,&nbsp;
               <a href="http://jennyseong.me/">Jenny Seong</a>,<br />
-              version2 updated and modified by <a href="http://zingweb.com/">Tim Tregubov</a>
+              version2.1 updated and modified by <a href="http://zingweb.com/">Tim Tregubov</a>
             </div>
           </Layout>
         </div>
