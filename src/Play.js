@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Bluebird from 'bluebird';
-import produce from "immer"
+import { produce } from "immer"
 
 import './Play.css';
 
@@ -61,9 +61,23 @@ function formatCoords(coords, radius) {
 
 
 export default class Play extends Component {
-  state = {
-    boomerangs: new Array(2).fill(null).map((_, idx) => defaultBoomerang(idx)),
-    birds: []
+  constructor(props) {
+    super(props);
+    if (!playCoords) setPlayCoords();
+    boomSpeed = (playCoords[1] / boomReturnTime) * 2;
+
+    const birds = props.level.events.filter(({ type, time }) => type.includes('bird'))
+      .map(({ type, time }) =>
+        (type === 'brokenbird' ? ({
+          id: `${type}${time}`, coords: [100 + (time * birdSpeed), 50], dead: false, broken: true,
+        }) :
+          ({ id: `${type}${time}`, coords: [100 + (time * birdSpeed), 50], dead: false })
+        ));
+
+    this.state = {
+      boomerangs: new Array(2).fill(null).map((_, idx) => defaultBoomerang(idx)),
+      birds
+    };
   }
 
   // eslint-disable-next-line
@@ -76,19 +90,6 @@ export default class Play extends Component {
   }
 
   tickIntervalId = null
-
-  componentWillMount() {
-    if (!playCoords) setPlayCoords();
-    boomSpeed = (playCoords[1] / boomReturnTime) * 2;
-
-    this.state.birds = this.props.level.events.filter(({ type, time }) => type.includes('bird'))
-      .map(({ type, time }) =>
-        (type === 'brokenbird' ? ({
-          id: `${type}${time}`, coords: [100 + (time * birdSpeed), 50], dead: false, broken: true,
-        }) :
-          ({ id: `${type}${time}`, coords: [100 + (time * birdSpeed), 50], dead: false })
-        ));
-  }
 
   componentWillUnmount() {
     clearInterval(this.tickIntervalId);

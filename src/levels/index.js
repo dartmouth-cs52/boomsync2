@@ -21,14 +21,13 @@ const levels = [
   },
   {
     level: 1,
-    before: 'chill(1000, () => {\n// write your code here\n});',
     initialCode: 'setTimeout( /* write your code here */ );',
     instructions: [
       'For this level, if you throw the boomerang right away you\'ll be too early.',
       'You\'ll need to throw a boomerang in <b>1000</b> ms.',
       `Javascript has a function <code>setTimeout(callback, delayTimeInMilliSeconds)</code>.
       It takes in two parameters: the first is a <i>function</i> to be called later
-      and the second parameter is the number if ms to wait.`,
+      and the second parameter is the number of ms to wait.`,
       'Welcome to <i>callback</i> functions.',
       `The optional parameter we can give to <code>throwBoomerang()</code> is also a callback.
       Callbacks are everywhere in asynchronous Javascript`,
@@ -53,7 +52,7 @@ const levels = [
       asynchronous execution, which is that while you're waiting for something
       to return, you can work on something else.`,
       `In this level you have 2 boomerangs,
-      you'll need to throw a second boomerag before the first one returns.
+      you'll need to throw a second boomerang before the first one returns.
       The first bird is coming so that if you throw one boomerang right away, you'll get it.`,
       'To hit the second one, you\'ll need to wait 500 ms before throwing.',
     ],
@@ -103,7 +102,7 @@ const levels = [
       Something that looks like: <code>(args) => { /* do something /* }</code>`,
       'This is called arrow notation for creating an anonymous function.',
       `In this level there is just one bird,
-      but you want to triggger an <code>alert('dinner!')</code>
+      but you want to trigger an <code>alert('dinner!')</code>
       when the function completes. `,
       'What would have happened if we just put the alert in as a callback without wrapping it in an anonymous function?',
     ],
@@ -126,8 +125,8 @@ const levels = [
       the error will return in the first parameter of the callback (with data optionally in the second).
       You could get the value of the data by giving your arrow function <code>(err, data)</code> parameters).`,
       `There are 3 birds in this round, but you only have 2 boomerangs.
-      One you can get immediately, one you can get after waiting for 2000 ms,
-      and one you can get after chilling for 4000 ms.`,
+      One you can get immediately, one you can get after waiting 2000 ms,
+      and one you can get after waiting 4000 ms.`,
       `The first one will break your boomerang, but in the real hunting world,
       and coding world, you never know when tragedy will strike: best practice obviously is to handle errors always!`,
       'We\'ve written out part of the first throwBoomerang function for you: call <code>fixBoomerangs()</code> to handle potential errors.',
@@ -164,9 +163,9 @@ promiseBoomerang.then(() => {
 .catch(error => fixBoomerangs());`,
     instructions: [
       'Awesome job! Next: Promises.',
-      'Promises help us write more legible asynch code using <code>.then()</code> notation.',
+      'Promises help us write more legible async code using <code>.then()</code> notation.',
       `A Promise is an object representing some asynchronous
-      operation, and it can be either pending, fullfilled, or rejected. If a promise is fullfilled,
+      operation, and it can be either pending, fulfilled, or rejected. If a promise is fulfilled,
       it resolves (optionally with a particular value). If a promise fails (rejects), it
       is rejected with an error. The wrapping of our function in an object allows us to separate errors from successes.`,
       `To make a promise, we construct a Promise object which takes in one parameter:
@@ -218,8 +217,8 @@ promiseBoomerang().then(() =>{\n\t \n})`,
     instructions: [
       'Can we replicate some error catching code that we did with callbacks, but with promises? Sure thing: if the promise returned from <code>throwBoomerang()</code> rejects,',
       'we can add a <code>.catch()</code> function to our function to do some error handling.',
-      `There are 3 birds in this round: one you can kill immediately (and breaks boomerang), one you can kill after chilling for 2000 ms,
-      and one you can kill after chilling for 4000 ms.`,
+      `There are 3 birds in this round: one you can hit immediately (and breaks boomerang), one you can hit after waiting 2000 ms,
+      and one you can hit after waiting 4000 ms.`,
     ],
     events: [
       {
@@ -239,13 +238,11 @@ promiseBoomerang().then(() =>{\n\t \n})`,
   {
     level: 9,
     instructions: [
-      'There is another way that in some cases looks cleaner than promises',
-      'async/await!',
-      'with async/await you can use the keyword <code>async</code> to mark a function as being asynchronous',
-      'and then you can use <code>await</code> to "wait" on promises',
-      'rather than using <code>.then</code> notation',
-      'in this example we\'ll have the <code>promiseBoomerang</code> function already available',
-      'Note how each line the async function runs after the previous await finishes.',
+      'There is another way that in some cases looks cleaner than promises: async/await!',
+      'With async/await you can use the keyword <code>async</code> to mark a function as being asynchronous,',
+      'and then you can use <code>await</code> to "wait" on promises rather than using <code>.then</code> notation.',
+      'In this example we\'ll have the <code>promiseBoomerang</code> function already available.',
+      'Note how each line in the async function runs after the previous await finishes.',
     ],
     events: [
       {
@@ -268,11 +265,11 @@ async function hunt(){
 hunt();`,
   },
   {
-    level: 11,
-    instructions: ['Out of levels! Nice bird hunting.',
-      'In this level there are birds at: immediately, 2000, 4000, 6000',
-      'and they are all tough birds, breaking your boomerang every time.',
-      'Good luck. Try creating a new function using <code>promiseBoomerang</code> with error catching.'],
+    level: 10,
+    instructions: ['Final challenge! Nice bird hunting so far.',
+      'In this level there are birds at: immediately, 2000, 4000, and 6000 ms.',
+      'They are all tough birds, breaking your boomerang every time.',
+      'Good luck! Try creating a new function using <code>promiseBoomerang</code> with error catching.'],
     initialCode: '// write your code here',
     solution: `
 const bp = () => {

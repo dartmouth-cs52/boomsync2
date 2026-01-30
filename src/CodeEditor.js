@@ -5,23 +5,17 @@ import 'brace/theme/solarized_light';
 import 'brace/ext/language_tools';
 
 export default class CodeEditor extends Component {
-  state = {
-    value: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.initialCode || '',
+    };
   }
 
-  componentWillMount() {
-    this.state.value = this.props.initialCode;
-  }
-
-  // componentWillReceiveProps() {
-  //   if (this.props.failed || this.props.playing) {
-  //   } else {
-  //     this.state.value = this.props.initialCode;
-  //   }
-  // }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.initialCode !== this.props.initialCode) { this.reloadProps(nextProps.initialCode); }
+  componentDidUpdate(prevProps) {
+    if (this.props.initialCode !== prevProps.initialCode) {
+      this.reloadProps(this.props.initialCode);
+    }
   }
 
   getContents = () => this.state.value
