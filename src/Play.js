@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Bluebird from 'bluebird';
 import { produce } from "immer"
 
 import './Play.css';
@@ -161,20 +160,18 @@ export default class Play extends Component {
       }, boomReturnTime);
     };
 
+    // Promise-wrapped version of throwBoomerang
     // eslint-disable-next-line
-    const promiseBoomerang = Bluebird.promisify(throwBoomerang);
-
-    // chill function
-    // don't use this
-    // eslint-disable-next-line
-    const chill = (ms, fn) => {
-      setTimeout(() => fn && typeof fn === 'function' && fn(null, {}), ms);
+    const promiseBoomerang = () => {
+      return new Promise((resolve, reject) => {
+        throwBoomerang((err, result) => {
+          if (err) reject(err);
+          else resolve(result);
+        });
+      });
     };
 
     try {
-      // eslint-disable-next-line
-      const bluebird = Bluebird; // need bluebird in context for eval
-      // TODO: replace bluebird with babel
       eval(this.props.code);
     } catch (err) {
       this.fail(err);

@@ -21,6 +21,32 @@ export default class App extends Component {
     failed: null,
     readyForNext: false,
     win: false,
+    leftWidth: 40, // percentage
+  }
+
+  // Resizable divider handlers
+  handleDividerMouseDown = (e) => {
+    e.preventDefault();
+    document.addEventListener('mousemove', this.handleDividerMouseMove);
+    document.addEventListener('mouseup', this.handleDividerMouseUp);
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  }
+
+  handleDividerMouseMove = (e) => {
+    const containerWidth = window.innerWidth;
+    const newLeftWidth = (e.clientX / containerWidth) * 100;
+    // Clamp between 25% and 65%
+    if (newLeftWidth >= 25 && newLeftWidth <= 65) {
+      this.setState({ leftWidth: newLeftWidth });
+    }
+  }
+
+  handleDividerMouseUp = () => {
+    document.removeEventListener('mousemove', this.handleDividerMouseMove);
+    document.removeEventListener('mouseup', this.handleDividerMouseUp);
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
   }
 
   handleClick = () => (this.state.readyForNext
@@ -111,7 +137,7 @@ export default class App extends Component {
 
     return (
       <div className="App">
-        <div className="Left-sidebar">
+        <div className="Left-sidebar" style={{ width: `${this.state.leftWidth}%` }}>
           <Layout>
             <Header style={{
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -177,6 +203,10 @@ export default class App extends Component {
             </div>
           </Layout>
         </div>
+        <div
+          className="Resizer"
+          onMouseDown={this.handleDividerMouseDown}
+        />
         <div className="Right-sidebar">
           { playing
             ? <Play {...{

@@ -189,15 +189,24 @@ promiseBoomerang.then(() => {
   },
   {
     level: 7,
-    initialCode: `const promiseBoomerang = bluebird.promisify(throwBoomerang)
-promiseBoomerang().then(() =>{\n\t \n})`,
+    initialCode: `// This helper wraps throwBoomerang in a Promise
+const promiseBoomerang = () => {
+  return new Promise((resolve, reject) => {
+    throwBoomerang((err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    });
+  });
+};
+
+promiseBoomerang().then(() => {
+  // throw another boomerang here
+})`,
     instructions: [
-      'Awesome job! Promises are really great, but they can take a lot of code to create wrappers if you already have a function that uses the usual <code>(err, callback)</code> format.',
-      `In this example, you can use a library called <code>bluebird</code> to convert
-      a function that takes a callback to a promise. Once you create that object using <code>.promisify(fn)</code>,
-      You register what it should resolve with <code>.then</code>
-      and reject with <code>.catch</code> as usual.`,
-      'The birds come at the same time as the previous level, so throw a boomerang right when the promise from the first boomerang resolves.',
+      'Writing Promise wrappers every time is tedious. Let\'s create a reusable helper!',
+      `The pattern: create a function that returns <code>new Promise((resolve, reject) => {...})</code>, call the callback-based function inside, and resolve/reject based on the result.`,
+      `We've written <code>promiseBoomerang</code> for you above. Study the pattern!`,
+      'Now use it: throw another boomerang when the first one resolves.',
     ],
     events: [
       {
@@ -213,12 +222,22 @@ promiseBoomerang().then(() =>{\n\t \n})`,
   },
   {
     level: 8,
-    initialCode: 'const promiseBoomerang = bluebird.promisify(throwBoomerang)\npromiseBoomerang()\n\t.catch(() => fixBoomerangs())',
+    initialCode: `const promiseBoomerang = () => {
+  return new Promise((resolve, reject) => {
+    throwBoomerang((err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    });
+  });
+};
+
+promiseBoomerang()
+  .catch(() => fixBoomerangs())`,
     instructions: [
-      'Can we replicate some error catching code that we did with callbacks, but with promises? Sure thing: if the promise returned from <code>throwBoomerang()</code> rejects,',
-      'we can add a <code>.catch()</code> function to our function to do some error handling.',
-      `There are 3 birds in this round: one you can hit immediately (and breaks boomerang), one you can hit after waiting 2000 ms,
-      and one you can hit after waiting 4000 ms.`,
+      'What about error handling with Promises?',
+      `When a Promise rejects, we handle it with <code>.catch()</code> — much cleaner than checking <code>err</code> in every callback!`,
+      `There are 3 birds: one immediately (breaks your boomerang!), one at 2000 ms, and one at 4000 ms.`,
+      `The first throw will break. Handle it with <code>.catch()</code>, then use <code>setTimeout</code> for the others.`,
     ],
     events: [
       {
