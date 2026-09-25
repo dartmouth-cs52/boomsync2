@@ -22,6 +22,7 @@ export default class App extends Component {
     readyForNext: false,
     win: false,
     leftWidth: 40, // percentage
+    hintsShown: 0, // hints stay revealed across retries, reset on level change
   }
 
   // Resizable divider handlers
@@ -57,6 +58,7 @@ export default class App extends Component {
       readyForNext: false,
       level: prevState.level + 1,
       failed: null,
+      hintsShown: 0,
     }))
     : this.setState(prevState => ({
       playing: true,
@@ -72,8 +74,16 @@ export default class App extends Component {
       readyForNext: false,
       playing: false,
       failed: null,
+      hintsShown: 0,
     }));
     this.codeEditor.reloadProps(this.initialCode(page - 1));
+  }
+
+  showHint = () => {
+    this.setState(
+      prevState => ({ hintsShown: prevState.hintsShown + 1 }),
+      () => this.lastHint && this.lastHint.scrollIntoView({ behavior: 'smooth', block: 'nearest' }),
+    );
   }
 
   succeed = () => {
@@ -128,10 +138,12 @@ export default class App extends Component {
 
   render() {
     const {
-      playing, level, code, failed,
+      playing, level, code, failed, hintsShown,
     } = this.state;
     const totalLevels = Object.keys(levels).length;
     const description = levels[level].instructions.join('<br/> <br/>');
+    const hints = levels[level].hints || [];
+    const hintLabel = hintsShown === 0 ? 'Hint' : hintsShown < hints.length ? 'Another hint' : 'No more hints';
     const initialCode = this.initialCode(level);
     // const lineStart = levels[level].lineStart;
 
@@ -154,6 +166,20 @@ export default class App extends Component {
             >
               <div className="Game-description">
                 <span dangerouslySetInnerHTML={{ __html: description }} />
+                {hintsShown > 0 && (
+                  <div className="Hints">
+                    {hints.slice(0, hintsShown).map((hint, idx) => (
+                      <div
+                        className="Hint"
+                        key={`${level}-${idx}`}
+                        ref={idx === hintsShown - 1 ? (el) => { this.lastHint = el; } : undefined}
+                      >
+                        <strong>Hint {idx + 1}/{hints.length}:</strong>&nbsp;
+                        <span dangerouslySetInnerHTML={{ __html: hint }} />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <CodeEditor
                 {...{ initialCode, failed, playing }}
@@ -169,9 +195,14 @@ export default class App extends Component {
                 padding: 10,
               }}
               >
-                <Button type="danger" onClick={this.handleResetClick}>
+                <Button type="primary" danger onClick={this.handleResetClick}>
                   Reset
                 </Button>
+                {hints.length > 0 && (
+                  <Button onClick={this.showHint} disabled={hintsShown >= hints.length}>
+                    {hintLabel}
+                  </Button>
+                )}
                 <ButtonGroup>
                   {
                     this.state.readyForNext && !this.state.playing ? <Button type="default" onClick={this.replay}> Replay </Button> : ''

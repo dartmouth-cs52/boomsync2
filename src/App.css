@@ -94,6 +94,19 @@ code:hover {
   display: none !important;
 }
 
+.Hints {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.Hint {
+  background-color: #fff8e1;
+  border-left: 4px solid #f0b429;
+  border-radius: 2px;
+  padding: 6px 10px;
+  margin-top: 6px;
+}
+
 .Left-sidebar {
   height: 100%;
   background-color: white;
