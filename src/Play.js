@@ -101,13 +101,25 @@ export default class Play extends Component {
 
   tickIntervalId = null
 
+  // a broken-boomerang error from this run that nobody handled (e.g. an await with no try/catch):
+  // show it now, the way the browser console words it, instead of waiting for a bird to escape.
+  // Errors are tagged per run so a stale run's rejection can't fail a new one.
+  onUnhandledRejection = (event) => {
+    const reason = event.reason;
+    if (reason && reason.run === this) {
+      this.fail({ name: 'Uncaught (in promise) Error', message: reason.message });
+    }
+  }
+
   componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.onUnhandledRejection);
     this.unmounted = true;
     clearInterval(this.tickIntervalId);
     this.tickIntervalId = null;
   }
 
   componentDidMount() {
+    window.addEventListener('unhandledrejection', this.onUnhandledRejection);
     let queuedBoomerangs = 0;
 
     // define fixBoomerang
@@ -179,7 +191,9 @@ export default class Play extends Component {
         try {
           if (this.state.boomerangs[bidx].broken) {
             console.log('BOOMERANG IS BROKEN!');
-            fn && typeof fn === 'function' && fn(Error('Boomerang is broken'), {});
+            const err = Error('Boomerang is broken');
+            Object.defineProperty(err, 'run', { value: this }); // non-enumerable: invisible if the player logs err
+            fn && typeof fn === 'function' && fn(err, {});
           } else {
             fn && typeof fn === 'function' && fn(null, {});
           }
@@ -217,9 +231,9 @@ export default class Play extends Component {
     // the player's code sees this alert instead of window.alert. On the dinner level it checks the timing:
     // alert('dinner!') has to wait until the bird is down and the boomerang is back in your hand
     // eslint-disable-next-line
-    const alert = (message) => {
+    const alert = (...args) => {
       if (this.unmounted) return;
-      window.alert(message);
+      window.alert(...args);
       if (!this.props.level.alertMeansDone || this.failed) return;
       if (this.state.birds.some(b => !b.dead) || this.state.boomerangs.some(b => b.throwing)) {
         this.failed = true;
