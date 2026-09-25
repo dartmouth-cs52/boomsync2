@@ -74,13 +74,19 @@ export default class Play extends Component {
         ));
 
     this.state = {
-      boomerangs: new Array(2).fill(null).map((_, idx) => defaultBoomerang(idx)),
+      boomerangs: new Array(props.level.boomerangs || 2).fill(null).map((_, idx) => defaultBoomerang(idx)),
       birds
     };
   }
 
   // eslint-disable-next-line
   failed = false;
+
+  // lesson checks: >0 while the player's throwBoomerang callback is running,
+  // how many throws so far, and whether dinner (alert) was served at the right time
+  inCallback = 0;
+  throwCount = 0;
+  dinnerCalled = false;
 
   // the player's code can leave timers running after this run ends (reset, try again, next level);
   // once unmounted, those stale timers must not reach back into App and fail or pass the new run
@@ -124,15 +130,30 @@ export default class Play extends Component {
     const throwBoomerang = (fn) => {
       if (this.unmounted) return;
       const bidx = getAvailableBoomerang(this.state.boomerangs);
+      const count = this.state.boomerangs.length;
       if (bidx === -1) {
         this.failed = true;
-        return this.fail({ name: 'Failure', message: `Sorry, you cannot throw more than ${2} boomerangs at once` });
+        return this.fail({
+          name: 'Failure',
+          message: count === 1
+            ? 'You only have 1 boomerang: wait for it to come back before throwing again'
+            : `Sorry, you cannot throw more than ${count} boomerangs at once`,
+        });
       }
       if (this.state.boomerangs[bidx].broken) {
         this.failed = true;
         return this.fail({ name: 'Failure', message: 'Trying to throw a broken boomerang' });
       }
+      // a level about callbacks: every throw after the first has to come from inside a callback, not a timer
+      if (this.props.level.requireCallback && this.throwCount > 0 && this.inCallback === 0) {
+        this.failed = true;
+        return this.fail({
+          name: 'Failure',
+          message: 'Your next throw didn\'t come from the callback. This level is about the callback: pass throwBoomerang a function that throws again',
+        });
+      }
 
+      this.throwCount += 1;
       ++queuedBoomerangs;
       //TODO: use produce to update state rather than the forceUpdate thing people have been doing
       const newBoomerangs = produce(this.state.boomerangs, draft => {
@@ -154,6 +175,7 @@ export default class Play extends Component {
 
         // the player's callback can be missing (passed by reference, fn is an empty Object) or can throw;
         // either way the timer must reach queuedBoomerangs--, and a throw should show up in the error box
+        this.inCallback += 1;
         try {
           if (this.state.boomerangs[bidx].broken) {
             console.log('BOOMERANG IS BROKEN!');
@@ -163,10 +185,18 @@ export default class Play extends Component {
           }
         } catch (err) {
           this.fail(err);
+        } finally {
+          this.inCallback -= 1;
         }
         queuedBoomerangs--;
         if (queuedBoomerangs === 0 && !this.failed && !this.unmounted) {
           if (this.state.birds.filter(b => !b.dead).length === 0) {
+            if (this.props.level.alertMeansDone && !this.dinnerCalled) {
+              return this.fail({
+                name: 'Failure',
+                message: 'The bird is down, but nobody called dinner! Call alert(\'dinner!\') when the boomerang comes back',
+              });
+            }
             return this.props.succeed();
           }
         }
@@ -182,6 +212,21 @@ export default class Play extends Component {
           else resolve(result);
         });
       });
+    };
+
+    // the player's code sees this alert instead of window.alert. On the dinner level it checks the timing:
+    // alert('dinner!') has to wait until the bird is down and the boomerang is back in your hand
+    // eslint-disable-next-line
+    const alert = (message) => {
+      if (this.unmounted) return;
+      window.alert(message);
+      if (!this.props.level.alertMeansDone || this.failed) return;
+      if (this.state.birds.some(b => !b.dead) || this.state.boomerangs.some(b => b.throwing)) {
+        this.failed = true;
+        this.fail({ name: 'Failure', message: 'Dinner before the hunt! alert() ran before your boomerang came back' });
+        return;
+      }
+      this.dinnerCalled = true;
     };
 
     try {

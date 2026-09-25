@@ -1,3 +1,7 @@
+// Level flags read by Play.js:
+//   boomerangs: how many the player has (default 2)
+//   requireCallback: every throw after the first must come from inside a throwBoomerang callback
+//   alertMeansDone: alert() must wait for the hunt, and must be called before the level counts as won
 const levels = [
   {
     level: 0,
@@ -43,6 +47,29 @@ const levels = [
   },
   {
     level: 2,
+    alertMeansDone: true,
+    hints: [
+      `Try <code>throwBoomerang(alert('dinner!'))</code> first and watch when the alert pops up.
+      Before the boomerang even leaves your hand, right?`,
+      `<code>alert('dinner!')</code> runs the moment JavaScript reads it, same trap as
+      <code>setTimeout(throwBoomerang(), 1000)</code> back in level 2.`,
+      'Wrap it in a function so it runs later: <code>() => alert(\'dinner!\')</code>',
+    ],
+    initialCode: 'throwBoomerang( () => { \n//your code here \n});',
+    instructions: [
+      `<b>Arrow functions:</b> <code>() => { ... }</code> creates an anonymous function inline.`,
+      `Hit the bird, then trigger <code>alert('dinner!')</code> when the boomerang returns.`,
+      `<b>Think:</b> Why can't we just pass <code>alert('dinner!')</code> directly as the callback?`,
+    ],
+    events: [
+      {
+        type: 'bird',
+        time: 1000,
+      },
+    ],
+  },
+  {
+    level: 3,
     hints: [
       `You don't have to wait for the first boomerang to come back before throwing the second one.
       That's the whole point of async!`,
@@ -69,7 +96,9 @@ const levels = [
     ],
   },
   {
-    level: 3,
+    level: 4,
+    boomerangs: 1,
+    requireCallback: true,
     hints: [
       `Throw right away for the first bird. The second bird needs a throw 3 s later,
       which is exactly when your boomerang gets back.`,
@@ -81,7 +110,7 @@ const levels = [
     instructions: [
       `Now you only have <b>1 boomerang</b> — wait for it to return before throwing again.`,
       `Pass a callback to <code>throwBoomerang(callback)</code> that runs when it returns.`,
-      `<i>Hint: Can you make it recursive?</i>`,
+      `No <code>setTimeout</code> this time: the second throw has to come from inside the callback.`,
     ],
     events: [
       {
@@ -94,30 +123,6 @@ const levels = [
       },
     ],
   },
-
-  {
-    level: 4,
-    hints: [
-      `Try <code>throwBoomerang(alert('dinner!'))</code> first and watch when the alert pops up.
-      Before the boomerang even leaves your hand, right?`,
-      `<code>alert('dinner!')</code> runs the moment JavaScript reads it, same trap as
-      <code>setTimeout(throwBoomerang(), 1000)</code> back in level 2.`,
-      'Wrap it in a function so it runs later: <code>() => alert(\'dinner!\')</code>',
-    ],
-    initialCode: 'throwBoomerang( () => { \n//your code here \n});',
-    instructions: [
-      `<b>Arrow functions:</b> <code>() => { ... }</code> creates an anonymous function inline.`,
-      `Hit the bird, then trigger <code>alert('dinner!')</code> when the boomerang returns.`,
-      `<b>Think:</b> Why can't we just pass <code>alert('dinner!')</code> directly as the callback?`,
-    ],
-    events: [
-      {
-        type: 'bird',
-        time: 1000,
-      },
-    ],
-  },
-
   {
     level: 5,
     hints: [
@@ -132,7 +137,7 @@ const levels = [
     instructions: [
       `<b>Error handling:</b> In async JS, callbacks receive <code>(err, data)</code> — error first!`,
       `The first bird will <b>break your boomerang</b>. Call <code>fixBoomerangs()</code> when <code>err</code> is truthy.`,
-      `Birds at: <b>0 ms</b> (breaks!), <b>2000 ms</b>, <b>4000 ms</b>. Handle the error, then use <code>setTimeout</code> for the rest.`,
+      `Throw at <b>0 ms</b> (that bird breaks it!), <b>2000 ms</b> and <b>4000 ms</b>. Handle the error, then use <code>setTimeout</code> for the rest.`,
     ],
     events: [
       {
@@ -174,7 +179,7 @@ promiseBoomerang.then(() => {
     instructions: [
       `<b>Promises</b> make async code cleaner: <code>.then()</code> for success, <code>.catch()</code> for errors.`,
       `A Promise wraps an async operation. Call <code>resolve()</code> on success, <code>reject()</code> on error.`,
-      `Study the code above — it wraps <code>throwBoomerang</code> in a Promise. Add a <code>throwBoomerang()</code> call inside <code>.then()</code> to hit the second bird.`,
+      `Same birds as level 5. Study the code below — it wraps <code>throwBoomerang</code> in a Promise. Add a <code>throwBoomerang()</code> call inside <code>.then()</code> to hit the second bird.`,
     ],
     events: [
       {
@@ -212,8 +217,8 @@ promiseBoomerang().then(() => {
 })`,
     instructions: [
       `<b>Reusable Promise wrapper:</b> A function that returns <code>new Promise(...)</code>.`,
-      `Study <code>promiseBoomerang()</code> above — it wraps the callback pattern in a Promise.`,
-      `Call it in <code>.then()</code> to throw another boomerang when the first resolves.`,
+      `Study <code>promiseBoomerang()</code> below — it wraps the callback pattern in a Promise.`,
+      `Same birds again: call it in <code>.then()</code> to throw another boomerang when the first resolves.`,
     ],
     events: [
       {
@@ -248,7 +253,7 @@ promiseBoomerang()
   .catch(() => fixBoomerangs())`,
     instructions: [
       `<b>Promise error handling:</b> Use <code>.catch()</code> instead of checking <code>err</code> in every callback.`,
-      `Birds at <b>0 ms</b> (breaks!), <b>2000 ms</b>, <b>4000 ms</b>. Handle the break with <code>.catch()</code>, use <code>setTimeout</code> for the rest.`,
+      `Same birds as level 6: throw at <b>0 ms</b> (that bird breaks it!), <b>2000 ms</b> and <b>4000 ms</b>. Handle the break with <code>.catch()</code>, use <code>setTimeout</code> for the rest.`,
     ],
     events: [
       {
@@ -269,14 +274,14 @@ promiseBoomerang()
     level: 9,
     hints: [
       '<code>await promiseBoomerang()</code> pauses <code>hunt</code> until the boomerang is back. The next line runs 3 s later.',
-      `Same birds as level 4, and a round trip takes 3 s.
+      `Same birds as level 5, and a round trip takes 3 s.
       So the second throw should go the moment the first <code>await</code> finishes.`,
       'Add another <code>await promiseBoomerang();</code> before the <code>alert</code>.',
     ],
     instructions: [
       `<b>async/await</b> makes Promises look like synchronous code!`,
       `Mark a function <code>async</code>, then use <code>await</code> to pause until a Promise resolves.`,
-      `<code>promiseBoomerang()</code> is available. Add another <code>await promiseBoomerang()</code> to hit both birds.`,
+      `Same birds as level 5. <code>promiseBoomerang()</code> is built in from here on. Add another <code>await promiseBoomerang()</code> to hit both birds.`,
     ],
     events: [
       {
@@ -301,26 +306,80 @@ hunt();`,
   {
     level: 10,
     hints: [
-      'Every bird breaks a boomerang, so every throw needs a <code>.catch</code> that calls <code>fixBoomerangs()</code>.',
-      'Write a little function that throws <i>and</i> handles its own error, then call it four times.',
-      `Birds come every 2 s but a boomerang takes 3 s to come back, so you can't wait for each one to return.
-      Schedule your function with <code>setTimeout</code> at 0, 2000, 4000 and 6000.`,
+      `Without a try/catch, the rejected promise makes <code>await</code> throw: <code>hunt</code> stops right there
+      and the second boomerang never flies.`,
+      '<code>try { await promiseBoomerang(); } catch (err) { ... }</code> is the async/await version of <code>.catch()</code>.',
+      'Call <code>fixBoomerangs()</code> inside the <code>catch</code>, then the second <code>await promiseBoomerang()</code> can fly.',
     ],
     instructions: [
-      `<b>Final challenge!</b> Birds at <b>0, 2000, 4000, 6000 ms</b> — all break your boomerang!`,
-      `Create a helper function that uses <code>promiseBoomerang()</code> with <code>.catch()</code> to fix errors. Good luck!`,
+      `<b>Errors with async/await:</b> when an awaited Promise rejects, <code>await</code> throws. Catch it with a plain <code>try { } catch (err) { }</code>.`,
+      `Same birds as level 5, but the first one breaks your boomerang.`,
+      `Wrap the first <code>await</code> in try/catch and call <code>fixBoomerangs()</code> in the <code>catch</code>.`,
     ],
-    initialCode: '// write your code here',
-    solution: `
-const bp = () => {
-  promiseBoomerang().catch((err) => {
-    if (err) fixBoomerangs();
-  });
+    events: [
+      {
+        type: 'brokenbird',
+        time: 1000,
+      },
+      {
+        type: 'bird',
+        time: 4000,
+      },
+    ],
+    initialCode: `
+async function hunt() {
+  // the first bird breaks your boomerang: catch that and fix it
+  await promiseBoomerang();
+
+  await promiseBoomerang();
 }
-bp();
-setTimeout(bp, 2000);
-setTimeout(bp, 4000);
-setTimeout(bp, 6000);`,
+
+hunt();`,
+  },
+  {
+    level: 11,
+    hints: [
+      `Fill in <code>throwSafely</code> with a try/catch around <code>await promiseBoomerang()</code>,
+      calling <code>fixBoomerangs()</code> in the <code>catch</code>.`,
+      'In <code>hunt</code>, loop 4 times: throw, then <code>await wait(2000)</code>.',
+      `Don't <code>await throwSafely()</code>: that waits 3 s for the boomerang to come back, and the next bird is
+      only 2 s away. Start the throw, then just wait the 2 s.`,
+    ],
+    instructions: [
+      `<b>Final challenge!</b> Throw at <b>0, 2000, 4000 and 6000 ms</b>, and every bird breaks your boomerang!`,
+      `Use async/await. <code>wait(ms)</code> in the starter code turns <code>setTimeout</code> into a Promise you can <code>await</code>.`,
+      `<b>Careful:</b> a boomerang takes 3 s to come back, but the birds come every 2 s.`,
+    ],
+    initialCode: `const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function throwSafely() {
+  // throw one boomerang, and fix it if it breaks (like last level)
+}
+
+async function hunt() {
+  // 4 throws, 2000 ms apart
+}
+
+hunt();`,
+    solution: `
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function throwSafely() {
+  try {
+    await promiseBoomerang();
+  } catch (err) {
+    fixBoomerangs();
+  }
+}
+
+async function hunt() {
+  for (let i = 0; i < 4; i++) {
+    throwSafely(); // no await: the next bird is only 2 s away
+    await wait(2000);
+  }
+}
+
+hunt();`,
     events: [
       {
         type: 'brokenbird',
