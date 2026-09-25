@@ -17,9 +17,10 @@ export default class CodeEditor extends Component {
           fontSize: 14,
         }}
         showGutter={false}
+        wrapEnabled
         value={err ? `${err.name}: ${err.message}` : 'No errors so far!'}
         height="10%"
-        style={{ minHeight: '50px' }}
+        style={{ minHeight: '64px' }}
         width="100%"
         readOnly
       />

@@ -149,7 +149,7 @@ export default class Play extends Component {
         this.failed = true;
         return this.fail({
           name: 'Failure',
-          message: 'Your next throw didn\'t come from the callback. This level is about the callback: pass throwBoomerang a function that throws again',
+          message: 'Your next throw has to come from the callback: pass throwBoomerang a function that throws again',
         });
       }
 
@@ -194,7 +194,7 @@ export default class Play extends Component {
             if (this.props.level.alertMeansDone && !this.dinnerCalled) {
               return this.fail({
                 name: 'Failure',
-                message: 'The bird is down, but nobody called dinner! Call alert(\'dinner!\') when the boomerang comes back',
+                message: 'Nobody called dinner! Call alert(\'dinner!\') when the boomerang comes back',
               });
             }
             return this.props.succeed();

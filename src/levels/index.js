@@ -328,7 +328,7 @@ hunt();`,
     ],
     initialCode: `
 async function hunt() {
-  // the first bird breaks your boomerang: catch that and fix it
+  // the first bird breaks it: catch and fix
   await promiseBoomerang();
 
   await promiseBoomerang();
@@ -350,10 +350,11 @@ hunt();`,
       `Use async/await. <code>wait(ms)</code> in the starter code turns <code>setTimeout</code> into a Promise you can <code>await</code>.`,
       `<b>Careful:</b> a boomerang takes 3 s to come back, but the birds come every 2 s.`,
     ],
-    initialCode: `const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    initialCode: `const wait = (ms) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 async function throwSafely() {
-  // throw one boomerang, and fix it if it breaks (like last level)
+  // throw once, fix it if it breaks
 }
 
 async function hunt() {
