@@ -110,7 +110,7 @@ export default class Play extends Component {
       if (this.unmounted) return;
       this.state.boomerangs.forEach(b => (b.broken = false));
       this.forceUpdate();
-      fn && fn(null, {});
+      fn && typeof fn === 'function' && fn(null, {});
       this.state.fixing = false;
     };
 
@@ -152,17 +152,20 @@ export default class Play extends Component {
         };
         this.forceUpdate();
 
-        if (this.state.boomerangs[bidx].broken) {
-          // no callback means nobody handles the error; don't crash the timer before queuedBoomerangs--
-          fn && typeof fn === 'function' && fn(Error('Boomerang is broken'), {});
-          console.log('BOOMERANG IS BROKEN!');
-        } else {
-          // if a reference to a function is called, then there is no callback, fn is an empty Object
-          // lol
-          fn && typeof fn === 'function' && fn(null, {});
+        // the player's callback can be missing (passed by reference, fn is an empty Object) or can throw;
+        // either way the timer must reach queuedBoomerangs--, and a throw should show up in the error box
+        try {
+          if (this.state.boomerangs[bidx].broken) {
+            console.log('BOOMERANG IS BROKEN!');
+            fn && typeof fn === 'function' && fn(Error('Boomerang is broken'), {});
+          } else {
+            fn && typeof fn === 'function' && fn(null, {});
+          }
+        } catch (err) {
+          this.fail(err);
         }
         queuedBoomerangs--;
-        if (queuedBoomerangs === 0 && !this.failed) {
+        if (queuedBoomerangs === 0 && !this.failed && !this.unmounted) {
           if (this.state.birds.filter(b => !b.dead).length === 0) {
             return this.props.succeed();
           }
