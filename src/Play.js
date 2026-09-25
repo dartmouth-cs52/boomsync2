@@ -82,7 +82,12 @@ export default class Play extends Component {
   // eslint-disable-next-line
   failed = false;
 
+  // the player's code can leave timers running after this run ends (reset, try again, next level);
+  // once unmounted, those stale timers must not reach back into App and fail or pass the new run
+  unmounted = false;
+
   fail = (err) => {
+    if (this.unmounted) return;
     clearInterval(this.tickIntervalId);
     this.failed = true;
     this.props.fail(err || { name: 'Failure', message: 'A bird escaped!' });
@@ -91,6 +96,7 @@ export default class Play extends Component {
   tickIntervalId = null
 
   componentWillUnmount() {
+    this.unmounted = true;
     clearInterval(this.tickIntervalId);
     this.tickIntervalId = null;
   }
@@ -101,6 +107,7 @@ export default class Play extends Component {
     // define fixBoomerang
     // eslint-disable-next-line
     const fixBoomerangs = (fn) => {
+      if (this.unmounted) return;
       this.state.boomerangs.forEach(b => (b.broken = false));
       this.forceUpdate();
       fn && fn(null, {});
@@ -115,6 +122,7 @@ export default class Play extends Component {
     // define throwBoomerang
     // eslint-disable-next-line
     const throwBoomerang = (fn) => {
+      if (this.unmounted) return;
       const bidx = getAvailableBoomerang(this.state.boomerangs);
       if (bidx === -1) {
         this.failed = true;
@@ -133,6 +141,7 @@ export default class Play extends Component {
       this.setState({boomerangs: newBoomerangs});
 
       setTimeout(() => { // TODO handle error
+        if (this.unmounted) return;
         this.state.boomerangs[bidx] = {
           coords: this.state.boomerangs[bidx].coords,
           rotation: this.state.boomerangs[bidx].rotation,
@@ -144,7 +153,8 @@ export default class Play extends Component {
         this.forceUpdate();
 
         if (this.state.boomerangs[bidx].broken) {
-          fn(Error('Boomerang is broken'), {});
+          // no callback means nobody handles the error; don't crash the timer before queuedBoomerangs--
+          fn && typeof fn === 'function' && fn(Error('Boomerang is broken'), {});
           console.log('BOOMERANG IS BROKEN!');
         } else {
           // if a reference to a function is called, then there is no callback, fn is an empty Object
